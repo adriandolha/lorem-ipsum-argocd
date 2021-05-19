@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lorem-ipsum
+  namespace: demo
+spec:
+  type: ClusterIP
+  selector:
+    app: lorem-ipsum
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: lorem-ipsum-prometheus
+  namespace: demo
+spec:
+  type: ClusterIP
+  selector:
+    app: lorem-ipsum
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 8081
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: lorem-ipsum-statsd
+  namespace: demo
+spec:
+  type: ClusterIP
+  selector:
+    app: lorem-ipsum
+  ports:
+    - protocol: TCP
+      targetPort: 9102
+      port: 9102
