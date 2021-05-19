@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lorem-ipsum
+  namespace: demo
+  labels:
+    app: lorem-ipsum
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lorem-ipsum
+  template:
+    metadata:
+      labels:
+        app: lorem-ipsum
+    spec:
+      containers:
+        - name: lorem-ipsum
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          #    imagePullPolicy: "Always"
+          env:
+            - name: app_env
+              value: "kube"
+            - name: aurora_user
+              value: "postgres"
+            - name: aurora_host
+              value: postgres-postgresql.default.svc.cluster.local
+            - name: aurora_port
+              value: "5432"
+            - name: aurora_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-postgresql
+                  key: postgresql-password
+            - name: admin_user
+              valueFrom:
+                secretKeyRef:
+                  name: lorem-ipsum
+                  key: admin-user
+            - name: admin_password
+              valueFrom:
+                secretKeyRef:
+                  name: lorem-ipsum
+                  key: admin-password
+            - name: password_encryption_key
+              valueFrom:
+                secretKeyRef:
+                  name: lorem-ipsum
+                  key: password-encryption-key
+            - name: pod_name
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          livenessProbe:
+            httpGet:
+              path: /books/health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          volumeMounts:
+            - mountPath: /jwk/certs
+              name: jwk-certs
+        - name: statsd-exporter
+          image: prom/statsd-exporter:latest
+      volumes:
+        - name: jwk-certs
+          secret:
+            secretName: jwk-certs-auth0
+            items:
+              - key: public.pem
+                path: public.pem
+              - key: key.pem
+                path: private.pem
