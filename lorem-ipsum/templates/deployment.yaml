@@ -25,13 +25,13 @@ spec:
             - name: aurora_user
               value: "postgres"
             - name: aurora_host
-              value: postgres-postgresql.default.svc.cluster.local
+              value: postgresql.{{ .Values.namespace }}.svc.cluster.local
             - name: aurora_port
               value: "5432"
             - name: aurora_password
               valueFrom:
                 secretKeyRef:
-                  name: postgres-postgresql
+                  name: postgres
                   key: postgresql-password
             - name: admin_user
               valueFrom:
