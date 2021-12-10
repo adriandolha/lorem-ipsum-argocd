@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: lorem-ipsum
-  namespace: '{{ .Release.Namespace }}'
+  namespace: 'dev'
   labels:
     app: lorem-ipsum
 spec:
@@ -25,7 +25,7 @@ spec:
             - name: aurora_user
               value: "postgres"
             - name: aurora_host
-              value: "postgresql.{{ .Release.Namespace }}.svc.cluster.local"
+              value: "postgresql.dev.svc.cluster.local"
             - name: aurora_port
               value: "5432"
             - name: aurora_password

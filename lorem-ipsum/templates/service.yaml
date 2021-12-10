@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: lorem-ipsum
-  namespace: '{{ .Release.Namespace }}'
+  namespace: 'dev'
 spec:
   type: ClusterIP
   selector:
@@ -16,7 +16,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: lorem-ipsum-prometheus
-  namespace: '{{ .Release.Namespace }}'
+  namespace: 'dev'
 spec:
   type: ClusterIP
   selector:
@@ -30,7 +30,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: lorem-ipsum-statsd
-  namespace: '{{ .Release.Namespace }}'
+  namespace: 'dev'
 spec:
   type: ClusterIP
   selector:
