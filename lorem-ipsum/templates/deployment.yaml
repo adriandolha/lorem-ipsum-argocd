@@ -22,6 +22,8 @@ spec:
           env:
             - name: app_env
               value: "kube"
+            - name: database_name
+              value: "postgres"
             - name: aurora_user
               value: "postgres"
             - name: aurora_host
