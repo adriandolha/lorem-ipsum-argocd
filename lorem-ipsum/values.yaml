@@ -6,4 +6,4 @@ image:
   repository: docker-registry.demo:5000:5000/lorem-ipsum
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.169.dev"
+  tag: "v1.0.171.dev"
