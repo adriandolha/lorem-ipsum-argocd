@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lorem-ipsum
+  name: lorem-ipsum-v1
   namespace: dev
   labels:
     app: lorem-ipsum
